@@ -27,6 +27,7 @@ void menuconsultas();
 void menuconsultas2(int op);
 void menuacceso();
 //void menuacceso2(int op);
+int login(char user[' '], char pass[' ']);
 void admin();
 void adminmenu();
 void adminmenu2(int op);
@@ -305,10 +306,11 @@ void menuacceso()
 				gets(pass);
 				
 				//codigo que verifique usuario y contrasena
-				//if(user == T && pass == T)	
+				if(login(user,pass) == 0)	
 					adminmenu();
-				//else
-				//printf("\n\tUsername or password doesnt match or exist\n");
+				else
+				printf("\n\tUsername or password doesnt match or exist\n\n");
+				
 	            printf("\t\tDo you want to exit to Main Menu? (1=yes 2=no)\n\t\t");
 	            fflush(stdin);
 	            gets(aux);
@@ -465,8 +467,8 @@ void adduser(struct usuario *pp)
 	//Add to textfile
 	FILE *ptr_file;
 
-		ptr_file =fopen("usuarios.txt", "w");
-
+		ptr_file =fopen("usuarios.txt", "a");
+		
 		if (!ptr_file)
 			printf("\t\tNo se encontro el archivo\n");
 		else
@@ -483,4 +485,26 @@ void adduser(struct usuario *pp)
 		fclose(ptr_file);
 
 	
+}
+
+int login(char user[' '], char pass[' '])
+{
+	FILE *ptr_file;
+	char aux[' '], aux2[' '];	
+		
+		
+		ptr_file =fopen("login.txt", "r");
+	//	fprintf(ptr_file,"%s\t%s", "ADMIN", "ADMIN");
+		fscanf(ptr_file, "%s\t%s", &aux, &aux2 );
+	//	printf("%s \t %s", aux, aux2);
+	if((strcmp(user,aux) == 0) && (strcmp(pass,aux2) == 0))
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+	
+		fclose(ptr_file);
 }
