@@ -412,13 +412,13 @@ void adduser(struct usuario *pp)
 		   
 	  }while(pp->tipo < 1 || pp->tipo > 8);	
 	  
-	  printf("\t\t Add name of he user:\n\t\t  ");
+	  printf("\t\t Add name of the user:\n\t\t  ");
 	  fflush(stdin);
 	  gets(pp->nom);
 	  
 	  do
 	  {
-	  	printf("\t\t Id of Avenue:  \n\t\t");
+	  	printf("\t\t Id of Avenue:  \n\t\t  ");
 	  	fflush(stdin);
 	  	gets(aux);
 	   	pp->dir.cve_colonia = validar(aux);
@@ -463,4 +463,24 @@ void adduser(struct usuario *pp)
 	}while(correct != 1);
 	
 	//Add to textfile
+	FILE *ptr_file;
+
+		ptr_file =fopen("usuarios.txt", "w");
+
+		if (!ptr_file)
+			printf("\t\tNo se encontro el archivo\n");
+		else
+		{
+			fprintf(ptr_file,"%d\t", pp->cve);
+			fprintf(ptr_file,"%d\t", pp->tipo);
+			fprintf(ptr_file,"%s\t", pp->nom);
+			fprintf(ptr_file,"%d\t", pp->dir.cve_colonia);
+			fprintf(ptr_file,"%s\t", pp->dir.colonia);
+			fprintf(ptr_file,"%f\t", pp->consumo);
+			fprintf(ptr_file,"%f\t\n", pp->pago);			
+		}
+		
+		fclose(ptr_file);
+
+	
 }
