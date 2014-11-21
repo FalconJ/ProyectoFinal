@@ -3,7 +3,7 @@
 #include<string.h>
 #include<ctype.h>
 
-
+//Structs for user data
 struct colonia
 {
 	int cve_colonia;
@@ -20,6 +20,12 @@ struct usuario
 	float pago;
 };
 
+struct tarifas
+{
+	float tar[8];	
+};
+
+//declaracion de funciones
 int validar(char aux[' ']);
 float validar2(char aux[' ']);
 void menu(int op);
@@ -33,6 +39,8 @@ void adminmenu();
 void adminmenu2(int op);
 void consulta(int op);
 void adduser(struct usuario *pp);
+int cveuser();
+void rates();
 
 int main()
 {
@@ -117,8 +125,8 @@ int validar(char aux[' '])
 
 float validar2(char aux[' '])
 {
-	int i, j, neg=0, n, u, len;
-	
+	int i, j, neg=0, u, len;
+	float n;	
 
 			u=0;
 			
@@ -339,7 +347,8 @@ void adminmenu()
         printf("\t\t2)Delete User\n\n");
         printf("\t\t3)Modificate User\n\n");
         printf("\t\t4)Reports\n\n");
-        printf("\t\t5)Exit\n\n");
+        printf("\t\t5)Modify rates for each user\n\n");
+        printf("\t\t6)Exit\n\n");
         for(i=0; i<30; i++)
                  printf(" -");
         printf("\n");
@@ -347,12 +356,12 @@ void adminmenu()
         gets(aux);
         op=validar(aux);
         
-        if(op < 1 || op > 5)
+        if(op < 1 || op > 6)
               printf("Try again.\n");
         else
         	adminmenu2(op);	  
     
-     }while(op != 5);
+     }while(op != 6);
 	
 }
 
@@ -374,6 +383,10 @@ void adminmenu2(int op)
 		case 4:
 				
 				break;
+		case 5:
+				rates();
+				break;
+				
 		default:
 				break;
 	}
@@ -478,8 +491,8 @@ void adduser(struct usuario *pp)
 			fprintf(ptr_file,"%s\t", pp->nom);
 			fprintf(ptr_file,"%d\t", pp->dir.cve_colonia);
 			fprintf(ptr_file,"%s\t", pp->dir.colonia);
-			fprintf(ptr_file,"%f\t", pp->consumo);
-			fprintf(ptr_file,"%f\t\n", pp->pago);			
+			fprintf(ptr_file,"%.2f\t", pp->consumo);
+			fprintf(ptr_file,"%.2f\t\n", pp->pago);			
 		}
 		
 		fclose(ptr_file);
@@ -508,3 +521,59 @@ int login(char user[' '], char pass[' '])
 	
 		fclose(ptr_file);
 }
+
+//EXPERIMENTAL STUFF
+int cveuser()
+{
+	int cve=0;
+	FILE *ptr_file;
+	
+	ptr_file = fopen("cve.txt", "r");
+	
+	//Stuff para dar clave de usuario automaticamente prioridad baja
+	
+	//do
+	//{
+	//	fscanf(ptr_file, "%d\n", cve );
+	//}while(cve != NULL);
+	fclose(ptr_file);
+	
+	//ptr_file=fopen("cve.txt", "a");
+}
+
+void rates()
+{
+	int i, op;
+	char aux[' '];
+	float rate;
+	FILE *ptr_file;
+
+	do
+	{	
+		ptr_file=fopen("tarifas.txt", "r");
+		
+		system("cls");
+		printf("\t\tCurrent User Rates:\n\n\t\tUser Type\tRate\n\n");
+		for(i=0; i<8; i++)
+		{
+			fscanf(ptr_file, "%f\n", &rate);
+			printf("\t\t\t%d\t%.2f\n\n", i+1, rate);
+		}
+		fclose(ptr_file);
+		
+	
+			printf("\t\tDo you want to change them? (1=yes, 2=no)\n\n\t\t  ");	
+			gets(aux);
+			op=validar(aux);
+			
+			if(op == 1)
+			{
+				//Stuff para cambiar las tarifas de los usuarios
+			}
+			else if(op < 1 || op > 2)
+			{
+				printf("\t\tPlease enter a valid option.\n\n");
+			}
+	}while(op !=2);	
+}
+
