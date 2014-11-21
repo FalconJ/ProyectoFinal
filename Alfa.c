@@ -9,7 +9,7 @@ struct colonia
 	int cve_colonia;
 	char colonia[15];
 };
-
+//pene
 struct usuario
 {
 	int cve;
