@@ -9,7 +9,7 @@ struct colonia
 	int cve_colonia;
 	char colonia[15];
 };
-//pene
+
 struct usuario
 {
 	int cve;
@@ -32,6 +32,7 @@ void menu(int op);
 void menuconsultas();
 void menuconsultas2(int op);
 void menuacceso();
+void reporte1();
 //void menuacceso2(int op);
 int login(char user[' '], char pass[' ']);
 void admin();
@@ -75,6 +76,7 @@ int main()
             
         
      }while(op != 3);
+      reporte1();   
     system("pause");
 }
 
@@ -575,5 +577,29 @@ void rates()
 				printf("\t\tPlease enter a valid option.\n\n");
 			}
 	}while(op !=2);	
+	fclose(ptr_file);
 }
 
+void reporte1()
+{
+
+     FILE *ptr_file;
+     int id;
+     char line_buffer[BUFSIZ]
+     char line_name;
+     
+     struct usuario aux;
+     
+     ptr_file = fopen("usuarios.txt", "r");
+     
+     system("cls");
+     
+     printf("\n\t\tREPORTE DE PAGO\n\n");
+     printf("\tUser Id\tName\tAvenue\tPago\n\n");
+     
+     do
+     {
+     fscanf(ptr_file, "%d\t%d\t%s\t%d\t%s\t%f\t\%f", &aux.cve, &aux.tipo, &aux.nom, &aux.dir.cve_colonia, &aux.dir.colonia, &aux.consumo, &aux.pago);
+     }while();
+}
+         
