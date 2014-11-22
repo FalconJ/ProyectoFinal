@@ -201,9 +201,9 @@ void menuconsultas()
                  printf(" -");
         printf("\n\t\t\tQUERIES\n\n");
         printf("\t\t1)By Avenue Id\n\n");
-        printf("\t\t2)By Avenue Name\n\n");
-        printf("\t\t3)By User Id\n\n");
-        printf("\t\t4)Exit Queries\n\n");
+       // printf("\t\t2)By Avenue Name\n\n");
+        printf("\t\t2)By User Id\n\n");
+        printf("\t\t3)Exit Queries\n\n");
         for(i=0; i<30; i++)
                  printf(" -");
         printf("\n");
@@ -234,9 +234,6 @@ void menuconsultas2(int op)
 		case 3:
 				consulta(op);
 				break;
-		case 4:
-				consulta(op);
-				break;
 		default:
 				break;
 	}
@@ -259,20 +256,19 @@ void consulta(int op)
             switch(op)
             {
             	case 1:	 
-            	       printf("\t\t1)By Avenue Id\n\n");
-                     printf("\tWrite the Avenue Id to query:\n\t\t");
-            	       break;
-            	 case 2:
-        		        printf("\t\t2)By Avenue Name\n\n");
-                    printf("\tWrite the Avenue Name to query:\n\t\t");
-        		        break;
-        		 case 3:
-        		 		printf("\t\t3)By User Id\n\n");
-                printf("\tWrite the User Id to query:\n\t\t");
+            	       	printf("\t\t1)By Avenue Id\n\n");
+                     	printf("\tWrite the Avenue Id to query:\n\t\t");
+                    	fflush(stdin);
+                     	gets(query);
+            	       	break;
+            	       
+        		 case 2:
+        		 		printf("\t\t2)By User Id\n\n");
+                		printf("\tWrite the User Id to query:\n\t\t");
+                		fflush(stdin);
+                		gets(query);
         		 		break;
             }
-                fflush(stdin);
-                gets(query);
 
             printf("\tIs correct the information? (1=yes 2=no)\n\t\t");
             fflush(stdin);
@@ -292,7 +288,18 @@ void consulta(int op)
         
      }while(exit != 1);
 }
-
+/*
+void qavenidaid(char query[' '])
+{
+	ptr_file = fopen("usuarios.txt","r");
+	if(ptr_file == NULL);
+		printf("\n\tFile not found\n");
+	else
+	{
+		
+	}
+}
+*/
 void menuacceso()
 {
 	 int i;
@@ -425,7 +432,7 @@ void adduser(struct usuario *pp)
 		  if(pp->tipo < 1 || pp->tipo > 8)
 		  	printf("\t\tTry Again\n");
 		   
-	  }while(pp->tipo < 1 || pp->tipo > 8);	
+	  }while(pp->tipo < 1 || pp->tipo > 8);
 	  
 	  printf("\t\t Add name of the user:\n\t\t  ");
 	  fflush(stdin);
@@ -483,7 +490,7 @@ void adduser(struct usuario *pp)
 		ptr_file =fopen("usuarios.txt", "a");
 		
 		if (!ptr_file)
-			printf("\t\tNo se encontro el archivo\n");
+			printf("\t\tFile not found\n");
 		else
 		{
 			fprintf(ptr_file,"%d\t", pp->cve);
@@ -499,11 +506,45 @@ void adduser(struct usuario *pp)
 
 	
 }
-
+/*
+void deluser(struct user *p,int n)
+{
+	int op;
+	ptr_file=fopen("usuario.txt","r+b");
+	fseek(arc,sizeof(p)*(n-1),0);
+	fread(&p,sizeof(p),1,arc);
+	printf("\n1.- Name: ",p->nom_user);
+	printf("\n2.- Zone: ",p->cc_user);
+	printf("\n3.- ID: ",p->cve);
+	printf("\n4.- Address: ",p->dir_user);
+	printf("\n5.- Type: ",p->tipo);
+	printf("\n6.- Consumption: ",p->cons_user);
+	printf("\n7.- Payment: ",p->pay_user);
+	printf("\nDelete? 1.-Yes / 2.-No: ");
+	scanf("%d",&op);
+	if(op==2)
+	{}
+	else if(op==1)
+	{
+		p->num_user=0;
+		strcpy(p->nom,"");
+		p->cons_user=0;
+		p->cc_user=0;
+		p->t_user=0;
+		p->imp_user=0;
+		p->over_user=0;
+		p->pay_user=0;
+		p->tot_user=0;
+		p->zip_user=0;
+		strcpy(p->dir_user,"");
+	}
+fclose(ptr_file);
+}
+*/
 int login(char user[' '], char pass[' '])
 {
 	FILE *ptr_file;
-	char aux[' '], aux2[' '];	
+	char aux[' '], aux2[' '];
 		
 		
 		ptr_file =fopen("login.txt", "r");
@@ -576,4 +617,3 @@ void rates()
 			}
 	}while(op !=2);	
 }
-
